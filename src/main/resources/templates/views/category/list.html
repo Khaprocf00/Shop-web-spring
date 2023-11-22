@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/admin}">
+<div layout:fragment="content" class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0"><a href="/category">CATEGORY</a></h1>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">List</li>
+                    </ol>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <form action="/category" method="get" id="formSubmit">
+        <section class="content">
+            <section class="ftco-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div th:if="${message != null}">
+                                <div th:text="${message}" th:class="'alert alert-' + ${alert}">
+                                </div>
+                            </div>
+                            <div class="table-wrap">
+                                <div class="pull-right tableTools-container">
+                                    <div class="dt-buttons btn-overlap btn-group mb-2">
+                                        <a flag="info"
+                                            class="dt-button buttons-colvis btn btn-white btn-primary btn-bold mr-2"
+                                            data-toggle="tooltip" title='Thêm bài viết' th:href="@{/category/action}">
+                                            <span>
+                                                <i class="fa fa-plus-circle bigger-110 purple"></i>
+                                            </span>
+                                        </a>
+                                        <button id="btnDelete" type="button" onclick="warningBeforeDelete()"
+                                            class="dt-button buttons-html5 btn btn-white btn-danger btn-bold"
+                                            data-toggle="tooltip" title='Xóa bài viết'>
+                                            <span>
+                                                <i class="fa fa-trash-o bigger-110 pink"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <table class="table">
+                                    <thead class="thead-primary">
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>Name</th>
+                                            <th>Code</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr th:each="item : ${model.listResult}" class="alert" role="alert">
+                                            <td><label class="checkbox-wrap checkbox-primary"
+                                                    th:for="'checkbox_' + ${item.id}">
+                                                    <input type="checkbox" th:id="'checkbox_' + ${item.id}"
+                                                        th:value="${item.id}"> <span class="checkmark"></span>
+                                                </label></td>
+                                            <!-- <td><img width="50px" height="70px"
+                                                    th:src="@{/category/__${item.imageName}__}" alt=""></td> -->
+                                            <td th:text="${item.name}"></td>
+                                            <td th:text="${item.code}"></td>
+                                            <td>
+
+                                                <a th:href="@{/category/action?id=__${item.id}__}">
+                                                    <button type="button" class="btn btn-primary mr-2">
+                                                        <span aria-hidden="true"><i
+                                                                class="fa-solid fa-pen-to-square"></i></span>
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <div class="d-flex flex-row-reverse">
+                                    <ul class="pagination" id="pagination"></ul>
+                                    <input type="hidden" value="" name="page" id="page" /> <input type="hidden" value=""
+                                        name="limit" id="limit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </form>
+
+    <script type="text/javascript">
+        var currentPage = [[${ model.page }]];
+        var totalPage = [[${ model.totalPage }]];
+        var limit = [[${ model.maxPageItem }]];
+        $(function () {
+            window.pagObj = $('#pagination').twbsPagination({
+                totalPages: totalPage,
+                visiblePages: 3,
+                startPage: currentPage,
+                onPageClick: function (event, page) {
+                    if (currentPage != page) {
+                        $('#page').val(page);
+                        $('#limit').val(limit);
+                        $('#formSubmit').submit();
+                    }
+                }
+            });
+        });
+
+        function warningBeforeDelete() {
+            swal({
+                title: "Xác nhận xóa",
+                text: "Bạn có chắc chắn muốn xóa hay không",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#28a745",
+                cancelButtonColor: "#DD6B55",
+                confirmButtonText: "Lụm",
+                cancelButtonText: "Hk nha",
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    var ids = $('input:checkbox:checked').map(function () {
+                        return $(this).val();
+                    }).get();
+                    if (ids.length != 0) {
+                        swal({
+                            text: "Đã xóa thành công",
+                            type: "success",
+                        }).then(function () {
+                            deleteNew(ids);
+                        })
+                    } else {
+                        swal({
+                            text: "You not choose category closed",
+                            type: "warning",
+                        }).then(function () {
+                            window.location.href = "/category?message=error_system";
+                        })
+                    }
+                }
+            });
+        }
+        function deleteNew(data) {
+            $.ajax({
+                url: '/api/category',
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (result) {
+                    window.location.href = "/category?page=1&limit=4&message=delete_success";
+                },
+                error: function (error) {
+                    window.location.href = "/category?page=1&limit=4&message=error_system";
+                }
+            });
+        }
+    </script>
+</div>

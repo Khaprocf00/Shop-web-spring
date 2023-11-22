@@ -1,17 +1,19 @@
 package com.web.shopweb.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto extends BaseDto<CategoryDto> {
-
+@NoArgsConstructor
+public class ImageDto extends BaseDto<ImageDto> {
     @NotEmpty(message = "Name is mandatory")
     private String name;
-    @NotEmpty(message = "Code is mandatory")
-    private String code;
+    private String imagePath;
+    // @NotEmpty(message = "image not empty")
+    private MultipartFile image;
 }

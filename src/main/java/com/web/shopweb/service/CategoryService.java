@@ -47,4 +47,10 @@ public class CategoryService {
         categoryEntity = categoryRepository.save(categoryEntity);
         return categoryConvertor.toDTO(categoryEntity);
     }
+
+    public void delete(Long[] ids) {
+        for (Long id : ids) {
+            categoryRepository.deleteById(id);
+        }
+    }
 }

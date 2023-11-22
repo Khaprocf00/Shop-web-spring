@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"><a href="/category">CATEGORY</a></h1>
+                    <h1 class="m-0"><a href="/brand">BRAND</a></h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
@@ -24,7 +24,7 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <form action="/category" method="get" id="formSubmit">
+    <form action="/brand" method="get" id="formSubmit">
         <section class="content">
             <section class="ftco-section">
                 <div class="container">
@@ -39,7 +39,7 @@
                                     <div class="dt-buttons btn-overlap btn-group mb-2">
                                         <a flag="info"
                                             class="dt-button buttons-colvis btn btn-white btn-primary btn-bold mr-2"
-                                            data-toggle="tooltip" title='Thêm bài viết' th:href="@{/category/action}">
+                                            data-toggle="tooltip" title='Thêm bài viết' th:href="@{/brand/action}">
                                             <span>
                                                 <i class="fa fa-plus-circle bigger-110 purple"></i>
                                             </span>
@@ -57,8 +57,8 @@
                                     <thead class="thead-primary">
                                         <tr>
                                             <th>&nbsp;</th>
-                                            <th>Name</th>
-                                            <th>Code</th>
+                                            <th style="text-align: center;">Image</th>
+                                            <th style="text-align: center;">Name</th>
                                             <th>&nbsp;</th>
                                         </tr>
                                     </thead>
@@ -70,13 +70,12 @@
                                                     <input type="checkbox" th:id="'checkbox_' + ${item.id}"
                                                         th:value="${item.id}"> <span class="checkmark"></span>
                                                 </label></td>
-                                            <!-- <td><img width="50px" height="70px"
-                                                    th:src="@{/category/__${item.imageName}__}" alt=""></td> -->
+                                            <td><img width="100px" th:src="@{/upload-dir/brand/__${item.imagePath}__}"
+                                                    alt=""></td>
                                             <td th:text="${item.name}"></td>
-                                            <td th:text="${item.code}"></td>
                                             <td>
 
-                                                <a th:href="@{/category/action?id=__${item.id}__}">
+                                                <a th:href="@{/brand/action?id=__${item.id}__}">
                                                     <button type="button" class="btn btn-primary mr-2">
                                                         <span aria-hidden="true"><i
                                                                 class="fa-solid fa-pen-to-square"></i></span>
@@ -128,8 +127,6 @@
                     cancel: "Hk nha", confirm: "Lụm"
                 },
                 showCancelButton: true,
-                confirmButtonClass: "btn btn-primary",
-                cancelButtonClass: "btn btn-danger",
                 confirmButtonText: "Lụm",
                 cancelButtonText: "Hk nha",
             }).then(function (isConfirm) {
@@ -146,10 +143,10 @@
                         })
                     } else {
                         swal({
-                            text: "You not choose category closed",
+                            text: "You not choose brand closed",
                             icon: "warning",
                         }).then(function () {
-                            // window.location.href = "/category?message=error_system";
+                            // window.location.href = "/brand?message=error_system";
                         })
                     }
                 }
@@ -157,15 +154,15 @@
         }
         function deleteNew(data) {
             $.ajax({
-                url: '/api/category',
+                url: '/api/brand',
                 type: 'DELETE',
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function (result) {
-                    window.location.href = "/category?page=1&limit=4&message=delete_success";
+                    window.location.href = "/brand?page=1&limit=4&message=delete_success";
                 },
                 error: function (error) {
-                    window.location.href = "/category?page=1&limit=4&message=error_system";
+                    window.location.href = "/brand?page=1&limit=4&message=error_system";
                 }
             });
         }

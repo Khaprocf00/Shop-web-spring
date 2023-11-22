@@ -1,6 +1,7 @@
 package com.web.shopweb.controller;
 
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,36 +25,22 @@ import com.web.shopweb.storage.StorageFileNotFoundException;
 
 @Controller
 public class FileUploadController {
-
-    private final StorageService storageService;
-
     @Autowired
-    public FileUploadController(StorageService storageService) {
-        this.storageService = storageService;
-    }
+    private StorageService storageService;
+
+    // @Autowired
+    // public FileUploadController(StorageService storageService) {
+    // this.storageService = storageService;
+    // }
 
     @GetMapping("/")
     public String listUploadedFiles(Model model) throws IOException {
-
         // model.addAttribute("files", storageService.loadAll().map(
         // path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
         // "serveFile", path.getFileName().toString()).build().toUri().toString())
         // .collect(Collectors.toList()));
 
         return "uploadForm";
-    }
-
-    @GetMapping("/files/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-
-        Resource file = storageService.loadAsResource(filename);
-
-        if (file == null)
-            return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @PostMapping("/")
@@ -71,5 +58,18 @@ public class FileUploadController {
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
+
+    // @GetMapping("/files/{filename:.+}")
+    // @ResponseBody
+    // public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+    // Resource file = storageService.loadAsResource(filename);
+
+    // if (file == null)
+    // return ResponseEntity.notFound().build();
+
+    // return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+    // "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    // }
 
 }

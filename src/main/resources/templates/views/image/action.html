@@ -3,7 +3,7 @@
     layout:decorate="~{layout/admin}">
 
 <head>
-    <title>Action Categoyry</title>
+    <title>Action Image</title>
 </head>
 
 <body>
@@ -14,13 +14,13 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0">
-                            <a href="/category">Categoyry</a>
+                            <a href="/image">Image</a>
                         </h1>
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Categoyry</a></li>
+                            <li class="breadcrumb-item"><a href="#">Image</a></li>
                             <li th:unless="${item.id==null}" class="breadcrumb-item active">Update</li>
                             <li th:if="${item.id==null}" class="breadcrumb-item active">Add</li>
                         </ol>
@@ -38,22 +38,21 @@
                 <div th:text="${message}" th:class="'alert alert-' + ${alert}">
                 </div>
             </div>
-            <form id="formSubmit" role="form" th:action="@{/category/action}" th:object="${item}" method="POST">
+            <form id="formSubmit" role="form" th:action="@{/image/action}" th:object="${item}" method="POST"
+                enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="name">Enter Name Categoyry</label>
+                    <label for="name">Enter Name Image</label>
                     <input type="text" class="form-control col-6" name="name" id="name" th:field="*{name}">
                     <p class="alert-danger col-6" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
                         Error
                     </p>
                 </div>
                 <div class="form-group">
-                    <label for="code">Enter Code Categoyry</label>
-                    <input type="text" class="form-control col-6" name="code" id="code" th:field="*{code}"
-                       >
-                    <p class="alert-danger col-6" th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Name
-                        Error
-                    </p>
-                   
+                    <label for="image">Enter Code Image</label>
+                    <input type="file" class="form-control col-6" name="image" id="image" th:field="*{image}"
+                        accept="image/png, image/jpeg">
+                    <img width="100px" th:src="@{/upload-dir/image/__${item.imagePath}__}" id="thumbnail"
+                        alt="Logo Preview">
                 </div>
                 <input type="hidden" name="id" id="id" th:field="*{id}">
                 <button th:unless="${item.id==null}" class="btn btn-info" type="submit" id="btnAddOrUpdate">
@@ -64,7 +63,21 @@
                 </button>
             </form>
         </div>
-       
+        <script>
+            $(document).ready(function () {
+                $('#image').change(function () {
+                    showImageThumbnail(this);
+                });
+            })
+            function showImageThumbnail(fileInput) {
+                file = fileInput.files[0];
+                reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#thumbnail').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        </script>
     </div>
 
 </body>

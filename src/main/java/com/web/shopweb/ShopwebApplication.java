@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import com.web.shopweb.service.BrandService;
+import com.web.shopweb.service.ImageService;
 import com.web.shopweb.service.StorageService;
 import com.web.shopweb.storage.StorageProperties;
 
@@ -18,10 +20,12 @@ public class ShopwebApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService) {
+	CommandLineRunner init(StorageService storageService, BrandService brandService, ImageService imageService) {
 		return (args) -> {
-			// storageService.deleteAll();
 			storageService.init();
+			brandService.init();
+			imageService.init();
+			// storageService.deleteAll();
 		};
 	}
 }

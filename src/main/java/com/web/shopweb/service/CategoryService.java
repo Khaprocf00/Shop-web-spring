@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.web.shopweb.convertor.CategoryConvertor;
+import com.web.shopweb.dto.BrandDto;
 import com.web.shopweb.dto.CategoryDto;
+import com.web.shopweb.entity.BrandEntity;
 import com.web.shopweb.entity.CategoryEntity;
 import com.web.shopweb.repository.CategoryRepository;
 
@@ -28,6 +30,14 @@ public class CategoryService {
     public List<CategoryDto> findAll(Pageable pageable) {
         List<CategoryDto> list = new ArrayList<>();
         for (CategoryEntity item : categoryRepository.findAll(pageable)) {
+            list.add(categoryConvertor.toDTO(item));
+        }
+        return list;
+    }
+
+    public List<CategoryDto> findAll() {
+        List<CategoryDto> list = new ArrayList<>();
+        for (CategoryEntity item : categoryRepository.findAll()) {
             list.add(categoryConvertor.toDTO(item));
         }
         return list;

@@ -2,37 +2,34 @@ package com.web.shopweb.convertor;
 
 import org.springframework.stereotype.Component;
 
-import com.web.shopweb.dto.CategoryDto;
-import com.web.shopweb.entity.CategoryEntity;
+import com.web.shopweb.dto.SizeDto;
+import com.web.shopweb.entity.SizeEntity;
 
 @Component
-public class CategoryConvertor {
-    public CategoryDto toDTO(CategoryEntity entity) {
-        CategoryDto dto = new CategoryDto();
+public class SizeConvertor {
+    public SizeDto toDTO(SizeEntity entity) {
+        SizeDto dto = new SizeDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setCode(entity.getCode());
         dto.setCreatedOn(entity.getCreatedOn());
         dto.setUpdatedOn(entity.getUpdatedOn());
         return dto;
     }
 
-    public CategoryEntity toEntity(CategoryDto dto) {
-        CategoryEntity entity = new CategoryEntity();
+    public SizeEntity toEntity(SizeDto dto) {
+        SizeEntity entity = new SizeEntity();
         if (dto.getId() != null) {
             entity.setId(dto.getId());
         }
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         entity.setCreatedOn(dto.getCreatedOn());
         entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 
-    public CategoryEntity toEntity(CategoryEntity entity, CategoryDto dto) {
+    public SizeEntity toEntity(SizeEntity entity, SizeDto dto) {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        entity.setCode(dto.getCode());
         dto.setCreatedOn(entity.getCreatedOn());
         dto.setUpdatedOn(entity.getUpdatedOn());
         return entity;

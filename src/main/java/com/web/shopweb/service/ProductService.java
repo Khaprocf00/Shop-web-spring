@@ -15,79 +15,81 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.shopweb.convertor.BrandConvertor;
-import com.web.shopweb.dto.BrandDto;
-import com.web.shopweb.entity.BrandEntity;
+import com.web.shopweb.convertor.ProductConvertor;
+import com.web.shopweb.dto.ProductDto;
+import com.web.shopweb.entity.ProductEntity;
 import com.web.shopweb.repository.BrandRepository;
+import com.web.shopweb.repository.CategoryRepository;
+import com.web.shopweb.repository.ProductRepository;
 import com.web.shopweb.storage.StorageException;
 import com.web.shopweb.storage.StorageProperties;
 
 @Service
-public class BrandService {
+public class ProductService {
     private Path rootLocation;
 
     @Autowired
-    public BrandService(StorageProperties properties) {
+    public ProductService(StorageProperties properties) {
 
         if (properties.getLocation().trim().length() == 0) {
             throw new StorageException("File upload location can not be Empty.");
         }
 
-        this.rootLocation = Paths.get(properties.getLocation() + "/brand");
+        this.rootLocation = Paths.get(properties.getLocation() + "/product");
     }
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Autowired
     private BrandRepository brandRepository;
 
     @Autowired
-    private BrandConvertor brandConvertor;
+    private ProductConvertor productConvertor;
 
     public int getTotalItem() {
-        return (int) brandRepository.count();
+        return (int) productRepository.count();
     }
 
-    public List<BrandDto> findAll(Pageable pageable) {
-        List<BrandDto> list = new ArrayList<>();
-        for (BrandEntity item : brandRepository.findAll(pageable)) {
-            list.add(brandConvertor.toDTO(item));
+    public List<ProductDto> findAll(Pageable pageable) {
+        List<ProductDto> list = new ArrayList<>();
+        for (ProductEntity item : productRepository.findAll(pageable)) {
+            list.add(productConvertor.toDTO(item));
         }
         return list;
     }
 
-    public List<BrandDto> findAll() {
-        List<BrandDto> list = new ArrayList<>();
-        for (BrandEntity item : brandRepository.findAll()) {
-            list.add(brandConvertor.toDTO(item));
-        }
-        return list;
+    public ProductDto findOne(Long id) {
+        return productConvertor.toDTO(productRepository.findOneById(id));
     }
 
-    public BrandDto findOne(Long id) {
-        return brandConvertor.toDTO(brandRepository.findOneById(id));
-    }
-
-    public BrandDto save(BrandDto brandDto) {
-        BrandEntity brandEntity = new BrandEntity();
-        if (brandDto.getId() != null) {
-            BrandEntity brandOld = brandRepository.findOneById(brandDto.getId());
-            if (brandDto.getImage().getOriginalFilename() != "") {
-                brandDto.setImagePath(brandDto.getImage().getOriginalFilename());
+    public ProductDto save(ProductDto productDto) {
+        ProductEntity productEntity = new ProductEntity();
+        if (productDto.getId() != null) {
+            ProductEntity productOld = productRepository.findOneById(productDto.getId());
+            if (productDto.getImage().getOriginalFilename() != "") {
+                productDto.setImagePath(productDto.getImage().getOriginalFilename());
             } else {
-                brandDto.setImagePath(brandOld.getImagePath());
+                productDto.setImagePath(productOld.getImagePath());
             }
-            brandEntity = brandConvertor.toEntity(brandOld, brandDto);
+            productEntity = productConvertor.toEntity(productOld, productDto);
         }
-        brandEntity = brandConvertor.toEntity(brandDto);
-        if (brandDto.getImage().getOriginalFilename() != "") {
-            brandEntity.setImagePath(brandDto.getImage().getOriginalFilename());
+        productEntity = productConvertor.toEntity(productDto);
+        if (productDto.getImage().getOriginalFilename() != "") {
+            productEntity.setImagePath(productDto.getImage().getOriginalFilename());
         }
-        brandEntity = brandRepository.save(brandEntity);
-        return brandConvertor.toDTO(brandEntity);
+        productEntity.setBrand(brandRepository.findOneById(productDto.getBrandId()));
+        productEntity.setCategory(categoryRepository.findOneById(productDto.getCategoryId()));
+        productEntity = productRepository.save(productEntity);
+        return productConvertor.toDTO(productEntity);
     }
 
     public void delete(Long[] ids) {
         for (Long id : ids) {
-            brandRepository.deleteById(id);
+            productRepository.deleteById(id);
         }
     }
 

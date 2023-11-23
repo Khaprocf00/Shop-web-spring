@@ -18,21 +18,18 @@ import lombok.Data;
 @Data
 @Builder
 @Entity
-@Table(name = "image")
-public class ImageEntity {
+@Table(name = "size")
+public class SizeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-    private String imagePath;
 
     @CreationTimestamp
     private LocalDateTime createdOn;
 
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private ProductEntity product;
+
 }

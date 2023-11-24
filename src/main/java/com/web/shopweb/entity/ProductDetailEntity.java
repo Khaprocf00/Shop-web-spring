@@ -1,37 +1,46 @@
 package com.web.shopweb.entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import groovy.transform.builder.Builder;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Builder
 @Entity
-@Table(name = "size")
-public class SizeEntity {
+@Table(name = "product_detail")
+public class ProductDetailEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int qty;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "size_id", nullable = false)
+    private SizeEntity size;
+
+    @ManyToOne
+    @JoinColumn(name = "color_id", nullable = false)
+    private ColorEntity color;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductEntity product;
 
     @CreationTimestamp
     private LocalDateTime createdOn;
 
     @UpdateTimestamp
     private LocalDateTime updatedOn;
-    @OneToMany(mappedBy = "size", cascade = CascadeType.ALL)
-    private List<ProductDetailEntity> productDetails;
+
 }

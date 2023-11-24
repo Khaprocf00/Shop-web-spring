@@ -70,16 +70,20 @@ public class ProductService {
         ProductEntity productEntity = new ProductEntity();
         if (productDto.getId() != null) {
             ProductEntity productOld = productRepository.findOneById(productDto.getId());
-            if (productDto.getImage().getOriginalFilename() != "") {
-                productDto.setImagePath(productDto.getImage().getOriginalFilename());
+            if (productDto.getImage() != null) {
+                if (productDto.getImage().getOriginalFilename() != "") {
+                    productDto.setImagePath(productDto.getImage().getOriginalFilename());
+                }
             } else {
                 productDto.setImagePath(productOld.getImagePath());
             }
             productEntity = productConvertor.toEntity(productOld, productDto);
         }
         productEntity = productConvertor.toEntity(productDto);
-        if (productDto.getImage().getOriginalFilename() != "") {
-            productEntity.setImagePath(productDto.getImage().getOriginalFilename());
+        if (productDto.getImage() != null) {
+            if (productDto.getImage().getOriginalFilename() != "") {
+                productEntity.setImagePath(productDto.getImage().getOriginalFilename());
+            }
         }
         productEntity.setBrand(brandRepository.findOneById(productDto.getBrandId()));
         productEntity.setCategory(categoryRepository.findOneById(productDto.getCategoryId()));

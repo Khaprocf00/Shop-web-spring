@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/admin}">
+
+<head>
+    <title>Action Product Detail</title>
+</head>
+
+<body>
+    <div layout:fragment="content" class="content-wrapper">
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">
+                            <a th:href="@{/productDetail/__${item.productId}__}">Product Detail</a>
+                        </h1>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Product Detail</a></li>
+                            <li th:unless="${item.id==null}" class="breadcrumb-item active">Update</li>
+                            <li th:if="${item.id==null}" class="breadcrumb-item active">Add</li>
+                        </ol>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <div class="container">
+            <div th:if="${message != null}">
+                <div th:text="${message}" th:class="'alert alert-' + ${alert}">
+                </div>
+            </div>
+            <form id="formSubmit" role="form" th:action="@{/productDetail/__${item.productId}__/action}"
+                th:object="${item}" method="POST">
+                <!-- <div class="form-group">
+                    <label for="name">Enter Name Product Detail</label>
+                    <input type="text" class="form-control col-6" name="name" id="name" th:field="*{name}">
+                    <p class="alert-danger col-6" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+                        Error
+                    </p>
+                </div> -->
+                <div class="form-group">
+                    <label for="sizeId">Choose Size Product Detail</label>
+                    <select name="sizeId" id="sizeId" class="form-control col-6">
+                        <option value="">---Choose Size---</option>
+                        <option th:each="size : ${sizes}" th:value="${size.id}" th:text="${size.name}"
+                            th:selected="${item.sizeId == size.id}">
+                        </option>
+                    </select>
+                    <p class="alert-danger col-6" th:if="${#fields.hasErrors('sizeId')}" th:errors="*{sizeId}">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="colorId">Choose Color Product Detail</label>
+                    <select name="colorId" id="colorId" class="form-control col-6">
+                        <option value="">---Choose Color---</option>
+                        <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"
+                            th:selected="${item.colorId == color.id}">
+                        </option>
+                    </select>
+                    <p class="alert-danger col-6" th:if="${#fields.hasErrors('colorId')}" th:errors="*{colorId}">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label for="qty">Enter Code Product Detail</label>
+                    <input type="text" class="form-control col-6" name="qty" id="qty" th:field="*{qty}">
+                    <p class="alert-danger col-6" th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}">Name
+                        Error
+                    </p>
+
+                </div>
+                <input type="hidden" name="id" id="id" th:field="*{id}">
+                <input type="hidden" name="productId" id="productId" th:field="*{productId}">
+                <button th:unless="${item.id==null}" class="btn btn-info" type="submit" id="btnAddOrUpdate">
+                    <i class="ace-icon fa fa-check bigger-110"></i> Update
+                </button>
+                <button th:if="${item.id==null}" class="btn btn-info" type="submit" id="btnAddOrUpdate">
+                    <i class="ace-icon fa fa-check bigger-110"></i> Create
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

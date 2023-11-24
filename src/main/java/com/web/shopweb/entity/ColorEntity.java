@@ -32,6 +32,8 @@ public class ColorEntity implements Serializable {
 
     private String name;
     private String code;
+    @OneToMany(mappedBy = "color", cascade = CascadeType.ALL)
+    private List<ProductDetailEntity> productDetails;
 
     @CreationTimestamp
     private LocalDateTime createdOn;

@@ -19,8 +19,8 @@ import com.web.shopweb.dto.CategoryDto;
 import com.web.shopweb.service.CategoryService;
 import com.web.shopweb.util.MessageUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/category")

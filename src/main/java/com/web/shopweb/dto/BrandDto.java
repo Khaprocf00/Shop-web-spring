@@ -1,15 +1,18 @@
 package com.web.shopweb.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class BrandDto extends BaseDto<BrandDto> {
     @NotEmpty(message = "Name is mandatory")
     private String name;

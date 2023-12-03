@@ -12,7 +12,7 @@ import com.web.shopweb.service.ProductService;
 import com.web.shopweb.service.StorageService;
 import com.web.shopweb.storage.StorageProperties;
 
-@SpringBootApplication
+@SpringBootApplication()
 @EnableConfigurationProperties(StorageProperties.class)
 public class ShopwebApplication {
 

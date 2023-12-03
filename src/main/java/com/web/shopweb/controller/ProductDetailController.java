@@ -26,8 +26,8 @@ import com.web.shopweb.service.ProductService;
 import com.web.shopweb.service.SizeService;
 import com.web.shopweb.util.MessageUtils;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/productDetail")

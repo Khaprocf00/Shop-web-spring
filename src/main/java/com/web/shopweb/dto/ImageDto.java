@@ -2,7 +2,7 @@ package com.web.shopweb.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

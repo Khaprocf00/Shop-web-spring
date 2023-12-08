@@ -1,6 +1,7 @@
 package com.web.shopweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,11 +28,10 @@ public class SizeEntity {
 
     private String name;
 
-    @CreationTimestamp
-    private LocalDateTime createdOn;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private Date updatedOn;
+    private String updatedBy;
+    private Date createdOn;
+    private String createdBy;
     @OneToMany(mappedBy = "size", cascade = CascadeType.ALL)
     private List<ProductDetailEntity> productDetails;
 }

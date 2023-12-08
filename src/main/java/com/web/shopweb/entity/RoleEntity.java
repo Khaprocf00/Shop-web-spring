@@ -1,6 +1,7 @@
 package com.web.shopweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,10 +37,9 @@ public class RoleEntity {
     @NaturalId
     private RoleName name;
 
-    @CreationTimestamp
-    private LocalDateTime createdOn;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private Date updatedOn;
+    private String updatedBy;
+    private Date createdOn;
+    private String createdBy;
 
 }

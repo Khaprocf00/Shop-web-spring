@@ -6,4 +6,6 @@ import com.web.shopweb.entity.SizeEntity;
 
 public interface SizeRepository extends JpaRepository<SizeEntity, Long> {
     SizeEntity findOneById(Long id);
+
+    boolean existsById(Long id);
 }

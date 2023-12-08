@@ -6,4 +6,6 @@ import com.web.shopweb.entity.ColorEntity;
 
 public interface ColorRepository extends JpaRepository<ColorEntity, Long> {
     ColorEntity findOneById(Long id);
+
+    boolean existsById(Long id);
 }

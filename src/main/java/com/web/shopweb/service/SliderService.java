@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.web.shopweb.dto.ProductDto;
+import com.web.shopweb.dto.SliderDto;
 
-public interface ProductService {
-    public List<ProductDto> findAll(Pageable pageable);
+public interface SliderService {
+    public List<SliderDto> findAll(Pageable pageable);
 
-    public List<ProductDto> findAll();
+    public List<SliderDto> findAll();
 
-    public ProductDto findOne(Long id);
+    public SliderDto findOne(Long id);
 
-    public ProductDto save(ProductDto productDto);
+    public SliderDto save(SliderDto sliderDto);
 
     public void delete(Long[] ids);
 
@@ -25,6 +25,10 @@ public interface ProductService {
     public void store(MultipartFile file);
 
     boolean existsByName(String name);
+
+    boolean existsByImagePath(String imagePath);
+
+    boolean existsByContent(String content);
 
     public int getTotalItem();
 }

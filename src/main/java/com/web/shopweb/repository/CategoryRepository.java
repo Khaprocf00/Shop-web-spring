@@ -6,4 +6,6 @@ import com.web.shopweb.entity.CategoryEntity;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
     CategoryEntity findOneById(Long id);
+
+    boolean existsById(Long id);
 }

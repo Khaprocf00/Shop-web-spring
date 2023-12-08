@@ -1,6 +1,7 @@
 package com.web.shopweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,11 +30,10 @@ public class ImageEntity {
     private String name;
     private String imagePath;
 
-    @CreationTimestamp
-    private LocalDateTime createdOn;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private Date updatedOn;
+    private String updatedBy;
+    private Date createdOn;
+    private String createdBy;
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;

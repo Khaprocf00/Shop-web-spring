@@ -12,7 +12,9 @@ public class ColorConvertor {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setCode(entity.getCode());
+        dto.setCreatedBy(entity.getCreatedBy());
         dto.setCreatedOn(entity.getCreatedOn());
+        dto.setUpdatedBy(entity.getUpdatedBy());
         dto.setUpdatedOn(entity.getUpdatedOn());
         return dto;
     }
@@ -24,8 +26,6 @@ public class ColorConvertor {
         }
         entity.setName(dto.getName());
         entity.setCode(dto.getCode());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 
@@ -33,8 +33,6 @@ public class ColorConvertor {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setCode(dto.getCode());
-        dto.setCreatedOn(entity.getCreatedOn());
-        dto.setUpdatedOn(entity.getUpdatedOn());
         return entity;
     }
 }

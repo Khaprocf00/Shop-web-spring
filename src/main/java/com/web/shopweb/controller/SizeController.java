@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.shopweb.dto.SizeDto;
-import com.web.shopweb.service.SizeService;
+import com.web.shopweb.service.impl.SizeServiceImpl;
 import com.web.shopweb.util.MessageUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ import javax.validation.Valid;
 @RequestMapping("/size")
 public class SizeController {
     @Autowired
-    private SizeService sizeService;
+    private SizeServiceImpl sizeService;
 
     @Autowired
     private MessageUtils messageUtil;

@@ -1,6 +1,7 @@
 package com.web.shopweb.entity;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,17 +40,16 @@ public class ProductEntity {
     private String content;
     private String shortDescription;
 
-    @CreationTimestamp
-    private LocalDateTime createdOn;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
+    private Date updatedOn;
+    private String updatedBy;
+    private Date createdOn;
+    private String createdBy;
 
     @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private CategoryEntity category;
     @ManyToOne
-    @JoinColumn(name = "brand_id", nullable = false)
+    @JoinColumn(name = "brand_id")
     private BrandEntity brand;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)

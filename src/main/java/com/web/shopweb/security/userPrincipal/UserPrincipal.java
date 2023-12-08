@@ -3,19 +3,13 @@ package com.web.shopweb.security.userPrincipal;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.web.shopweb.entity.RoleEntity;
 import com.web.shopweb.entity.UserEntity;
 
 import lombok.AllArgsConstructor;

@@ -11,7 +11,9 @@ public class SizeConvertor {
         SizeDto dto = new SizeDto();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
+        dto.setCreatedBy(entity.getCreatedBy());
         dto.setCreatedOn(entity.getCreatedOn());
+        dto.setUpdatedBy(entity.getUpdatedBy());
         dto.setUpdatedOn(entity.getUpdatedOn());
         return dto;
     }
@@ -22,16 +24,12 @@ public class SizeConvertor {
             entity.setId(dto.getId());
         }
         entity.setName(dto.getName());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 
     public SizeEntity toEntity(SizeEntity entity, SizeDto dto) {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
-        dto.setCreatedOn(entity.getCreatedOn());
-        dto.setUpdatedOn(entity.getUpdatedOn());
         return entity;
     }
 }

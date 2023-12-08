@@ -22,7 +22,9 @@ public class ProductConvertor {
         dto.setBrandId(entity.getBrand().getId());
         dto.setCategoryName(entity.getCategory().getName());
         dto.setBrandName(entity.getBrand().getName());
+        dto.setCreatedBy(entity.getCreatedBy());
         dto.setCreatedOn(entity.getCreatedOn());
+        dto.setUpdatedBy(entity.getUpdatedBy());
         dto.setUpdatedOn(entity.getUpdatedOn());
         return dto;
     }
@@ -40,8 +42,6 @@ public class ProductConvertor {
         entity.setShortDescription(dto.getShortDescription());
         entity.setSku(dto.getSku());
         entity.setQty(dto.getQty());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 
@@ -55,8 +55,6 @@ public class ProductConvertor {
         entity.setShortDescription(dto.getShortDescription());
         entity.setSku(dto.getSku());
         entity.setQty(dto.getQty());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 }

@@ -2,6 +2,7 @@ package com.web.shopweb.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,11 +34,10 @@ public class CategoryEntity implements Serializable {
     private String name;
     private String code;
 
-    @CreationTimestamp
-    private LocalDateTime createdOn;
-
-    @UpdateTimestamp
-    private LocalDateTime updatedOn;
+     private Date updatedOn;
+    private String updatedBy;
+    private Date createdOn;
+    private String createdBy;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<ProductEntity> products;

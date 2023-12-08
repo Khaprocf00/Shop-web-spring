@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import com.web.shopweb.service.BrandService;
 import com.web.shopweb.service.ImageService;
 import com.web.shopweb.service.ProductService;
+import com.web.shopweb.service.SliderService;
 import com.web.shopweb.service.StorageService;
 import com.web.shopweb.storage.StorageProperties;
 
@@ -23,12 +24,13 @@ public class ShopwebApplication {
 	@Bean
 	CommandLineRunner init(StorageService storageService,
 			BrandService brandService, ImageService imageService,
-			ProductService productService) {
+			ProductService productService, SliderService sliderService) {
 		return (args) -> {
 			storageService.init();
 			brandService.init();
 			imageService.init();
 			productService.init();
+			sliderService.init();
 			// storageService.deleteAll();
 		};
 	}

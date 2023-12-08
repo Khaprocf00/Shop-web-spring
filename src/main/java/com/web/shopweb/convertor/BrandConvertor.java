@@ -12,7 +12,9 @@ public class BrandConvertor {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setImagePath(entity.getImagePath());
+        dto.setCreatedBy(entity.getCreatedBy());
         dto.setCreatedOn(entity.getCreatedOn());
+        dto.setUpdatedBy(entity.getUpdatedBy());
         dto.setUpdatedOn(entity.getUpdatedOn());
         return dto;
     }
@@ -24,8 +26,6 @@ public class BrandConvertor {
         }
         entity.setName(dto.getName());
         entity.setImagePath(dto.getImagePath());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 
@@ -33,10 +33,6 @@ public class BrandConvertor {
         entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setImagePath(dto.getImagePath());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
-        entity.setCreatedOn(dto.getCreatedOn());
-        entity.setUpdatedOn(dto.getUpdatedOn());
         return entity;
     }
 }

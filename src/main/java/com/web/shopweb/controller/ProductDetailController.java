@@ -23,7 +23,7 @@ import com.web.shopweb.repository.ProductRepository;
 import com.web.shopweb.service.ColorService;
 import com.web.shopweb.service.ProductDetailService;
 import com.web.shopweb.service.ProductService;
-import com.web.shopweb.service.SizeService;
+import com.web.shopweb.service.impl.SizeServiceImpl;
 import com.web.shopweb.util.MessageUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +35,7 @@ public class ProductDetailController {
     @Autowired
     private ProductDetailService productDetailService;
     @Autowired
-    private SizeService sizeService;
+    private SizeServiceImpl sizeService;
     @Autowired
     private ColorService colorService;
     @Autowired
